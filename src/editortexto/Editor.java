@@ -151,7 +151,7 @@ public class Editor extends javax.swing.JFrame {
         btnEdicion1.setText("Edicion");
         mnuEdicion.add(btnEdicion1);
 
-        btnEdicion2.setText("Edicion");
+        btnEdicion2.setText("Configuracion");
 
         btnEdicion3.setText("Edicion");
         btnEdicion2.add(btnEdicion3);

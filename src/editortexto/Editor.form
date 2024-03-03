@@ -135,7 +135,7 @@
             </Menu>
             <Menu class="javax.swing.JMenu" name="btnEdicion2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Edicion"/>
+                <Property name="text" type="java.lang.String" value="Configuracion"/>
               </Properties>
               <SubComponents>
                 <Menu class="javax.swing.JMenu" name="btnEdicion3">
