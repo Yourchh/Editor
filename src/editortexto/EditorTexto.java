@@ -14,7 +14,7 @@ public class EditorTexto {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new Editor().setVisible(true);
+        new BlockDeNotas().setVisible(true);
     }
     
 }
