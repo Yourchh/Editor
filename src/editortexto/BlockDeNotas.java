@@ -4,15 +4,26 @@
  */
 package editortexto;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.BadLocationException;
 
 /**
  *
@@ -20,8 +31,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class BlockDeNotas extends javax.swing.JFrame {
 
+//    ArrayList<String> historico = new ArrayList<>();
+//    Clipboard portapapeles = Toolkit.getDefaultToolkit().getSystemClipboard();
+    private String accionAnterior;
+    private final Clipboard clipboard;
     String ruta = "";
     String titulo;
+    String textoABuscar;
 
     /**
      * Creates new form Editor
@@ -30,7 +46,8 @@ public class BlockDeNotas extends javax.swing.JFrame {
         initComponents();
         titulo = "Sin titulo";
         setTitle(titulo + ": Block de notas");
-
+        accionAnterior = null;
+        clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     }
 
     /**
@@ -43,10 +60,11 @@ public class BlockDeNotas extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jPanel1 = new javax.swing.JPanel();
+        btnAjustes = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtaContenido = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuArchivo = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -60,12 +78,23 @@ public class BlockDeNotas extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem8 = new javax.swing.JMenuItem();
         mnuEdicion = new javax.swing.JMenu();
-        btnEdicion1 = new javax.swing.JMenu();
-        btnEdicion2 = new javax.swing.JMenu();
-        btnEdicion3 = new javax.swing.JMenu();
+        mnuDeshacer = new javax.swing.JMenuItem();
+        mnuCortar = new javax.swing.JMenuItem();
+        mnuCopiar = new javax.swing.JMenuItem();
+        mnuPegar = new javax.swing.JMenuItem();
+        mnuEliminar = new javax.swing.JMenuItem();
+        mnuBuscar = new javax.swing.JMenuItem();
+        mnuBuscarSiguiente = new javax.swing.JMenuItem();
+        mnuBuscarAnterior = new javax.swing.JMenuItem();
+        mnuReemplazar = new javax.swing.JMenuItem();
+        mnuIra = new javax.swing.JMenuItem();
+        mnuSeleccionarTodo = new javax.swing.JMenuItem();
+        mnuFechaHora = new javax.swing.JMenuItem();
         mnuFormato = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         mnuVer = new javax.swing.JMenu();
+        mnuBarraEstado = new javax.swing.JCheckBoxMenuItem();
+        mnuAjusteLinea = new javax.swing.JCheckBoxMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
@@ -82,6 +111,32 @@ public class BlockDeNotas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnAjustes.setForeground(new java.awt.Color(255, 255, 255));
+        btnAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-ajustes.gif"))); // NOI18N
+        btnAjustes.setBorder(null);
+        btnAjustes.setOpaque(true);
+        btnAjustes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAjustesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(471, Short.MAX_VALUE)
+                .addComponent(btnAjustes)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnAjustes)
+        );
+
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
@@ -89,25 +144,18 @@ public class BlockDeNotas extends javax.swing.JFrame {
         txtaContenido.setRows(5);
         jScrollPane1.setViewportView(txtaContenido);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 463, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 18, Short.MAX_VALUE)
-        );
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ajuste.png"))); // NOI18N
-        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton1.setOpaque(true);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
 
         mnuArchivo.setMnemonic('A');
         mnuArchivo.setText("Archivo");
@@ -172,21 +220,132 @@ public class BlockDeNotas extends javax.swing.JFrame {
         mnuEdicion.setMnemonic('A');
         mnuEdicion.setText("Edicion");
 
-        btnEdicion1.setText("Edicion");
-        mnuEdicion.add(btnEdicion1);
+        mnuDeshacer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnuDeshacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenes/deshacer.png"))); // NOI18N
+        mnuDeshacer.setText("Deshacer");
+        mnuDeshacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuDeshacerActionPerformed(evt);
+            }
+        });
+        mnuEdicion.add(mnuDeshacer);
 
-        btnEdicion2.setText("Configuracion");
+        mnuCortar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnuCortar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/bote-de-basura-cortado.png"))); // NOI18N
+        mnuCortar.setText("Cortar");
+        mnuCortar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCortarActionPerformed(evt);
+            }
+        });
+        mnuEdicion.add(mnuCortar);
 
-        btnEdicion3.setText("Edicion");
-        btnEdicion2.add(btnEdicion3);
+        mnuCopiar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnuCopiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenes/dupdo.png"))); // NOI18N
+        mnuCopiar.setText("Copiar");
+        mnuCopiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCopiarActionPerformed(evt);
+            }
+        });
+        mnuEdicion.add(mnuCopiar);
 
-        mnuEdicion.add(btnEdicion2);
+        mnuPegar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnuPegar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenes/pegar.png"))); // NOI18N
+        mnuPegar.setText("Pegar");
+        mnuPegar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPegarActionPerformed(evt);
+            }
+        });
+        mnuEdicion.add(mnuPegar);
+
+        mnuEliminar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        mnuEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenes/circulo-cruzado.png"))); // NOI18N
+        mnuEliminar.setText("Eliminar");
+        mnuEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuEliminarActionPerformed(evt);
+            }
+        });
+        mnuEdicion.add(mnuEliminar);
+
+        mnuBuscar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnuBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenes/buscar-alt.png"))); // NOI18N
+        mnuBuscar.setText("Buscar");
+        mnuBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBuscarActionPerformed(evt);
+            }
+        });
+        mnuEdicion.add(mnuBuscar);
+
+        mnuBuscarSiguiente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        mnuBuscarSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenes/flecha-pequena-derecha.png"))); // NOI18N
+        mnuBuscarSiguiente.setText("Buscar siguiente");
+        mnuBuscarSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBuscarSiguienteActionPerformed(evt);
+            }
+        });
+        mnuEdicion.add(mnuBuscarSiguiente);
+
+        mnuBuscarAnterior.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
+        mnuBuscarAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenes/flecha-pequena-derecha (1).png"))); // NOI18N
+        mnuBuscarAnterior.setText("Buscar anterior");
+        mnuBuscarAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBuscarAnteriorActionPerformed(evt);
+            }
+        });
+        mnuEdicion.add(mnuBuscarAnterior);
+
+        mnuReemplazar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnuReemplazar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenes/reemplazar.png"))); // NOI18N
+        mnuReemplazar.setText("Reemplazar");
+        mnuReemplazar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReemplazarActionPerformed(evt);
+            }
+        });
+        mnuEdicion.add(mnuReemplazar);
+
+        mnuIra.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnuIra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenes/diamante-gira-a-la-derecha.png"))); // NOI18N
+        mnuIra.setText("Ir a");
+        mnuIra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuIraActionPerformed(evt);
+            }
+        });
+        mnuEdicion.add(mnuIra);
+
+        mnuSeleccionarTodo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnuSeleccionarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenes/seleccionar.png"))); // NOI18N
+        mnuSeleccionarTodo.setText("Seleccionar todo");
+        mnuSeleccionarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSeleccionarTodoActionPerformed(evt);
+            }
+        });
+        mnuEdicion.add(mnuSeleccionarTodo);
+
+        mnuFechaHora.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        mnuFechaHora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenes/calendario-reloj.png"))); // NOI18N
+        mnuFechaHora.setText("Fecha y hora");
+        mnuFechaHora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFechaHoraActionPerformed(evt);
+            }
+        });
+        mnuEdicion.add(mnuFechaHora);
 
         jMenuBar1.add(mnuEdicion);
 
         mnuFormato.setMnemonic('A');
         mnuFormato.setText("Formato");
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenes/comprobacion-de-texto.png"))); // NOI18N
         jMenuItem3.setText("Fuente");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,6 +358,25 @@ public class BlockDeNotas extends javax.swing.JFrame {
 
         mnuVer.setMnemonic('A');
         mnuVer.setText("Ver");
+
+        mnuBarraEstado.setSelected(true);
+        mnuBarraEstado.setText("Barra de estado");
+        mnuBarraEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBarraEstadoActionPerformed(evt);
+            }
+        });
+        mnuVer.add(mnuBarraEstado);
+
+        mnuAjusteLinea.setSelected(true);
+        mnuAjusteLinea.setText("Ajuste de linea");
+        mnuAjusteLinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAjusteLineaActionPerformed(evt);
+            }
+        });
+        mnuVer.add(mnuAjusteLinea);
+
         jMenuBar1.add(mnuVer);
 
         mnuAyuda.setMnemonic('A');
@@ -211,21 +389,18 @@ public class BlockDeNotas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(0, 9, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getAccessibleContext().setAccessibleName("Sin Titulo: Block de notas");
@@ -339,9 +514,158 @@ public class BlockDeNotas extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAjustesActionPerformed
+
+    private void mnuDeshacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDeshacerActionPerformed
+        if (accionAnterior != null) {
+            txtaContenido.setText(accionAnterior);
+            accionAnterior = null;
+        }
+    }//GEN-LAST:event_mnuDeshacerActionPerformed
+
+    private void mnuBuscarAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBuscarAnteriorActionPerformed
+        int indiceEncontrado = txtaContenido.getText().lastIndexOf(textoABuscar, txtaContenido.getCaretPosition());
+        if (indiceEncontrado != -1) {
+            txtaContenido.select(indiceEncontrado, indiceEncontrado + textoABuscar.length());
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró la coincidencia anterior.");
+        }
+    }//GEN-LAST:event_mnuBuscarAnteriorActionPerformed
+
+    public static boolean esNumeroEntero(String valor) {
+        try {
+            Integer.parseInt(valor);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public int obtenerNumeroEntero(String valor) throws NumberFormatException {
+        if (esNumeroEntero(valor)) {
+            return Integer.parseInt(valor);
+        } else {
+            JOptionPane.showMessageDialog(this, "Error, solo ingrese numeros.");
+        }
+        return 0;
+    }
+
+    private void mnuIraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuIraActionPerformed
+        String line = JOptionPane.showInputDialog(this, "Introduzca el numero de linea a la que quiere ir: ");
+        int linea = obtenerNumeroEntero(line);
+        if (linea != 0) {
+            try {
+                int lineaActual = txtaContenido.getLineOfOffset(txtaContenido.getCaretPosition());
+            } catch (BadLocationException ex) {
+                Logger.getLogger(BlockDeNotas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (linea >= 1 && linea <= txtaContenido.getLineCount()) {
+                int offset = 0;
+                try {
+                    offset = txtaContenido.getLineStartOffset(linea - 1);
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(BlockDeNotas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                txtaContenido.setCaretPosition(offset);
+            } else {
+                JOptionPane.showMessageDialog(this, "Número de línea inválido.");
+            }
+        }
+    }//GEN-LAST:event_mnuIraActionPerformed
+
+    private void mnuBarraEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBarraEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuBarraEstadoActionPerformed
+
+    private void mnuAjusteLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAjusteLineaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuAjusteLineaActionPerformed
+
+    private void mnuCortarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCortarActionPerformed
+        accionAnterior = txtaContenido.getText();
+        int seleccionInicio = txtaContenido.getSelectionStart();
+        int seleccionFin = txtaContenido.getSelectionEnd();
+        String textoSeleccionado = txtaContenido.getText().substring(seleccionInicio, seleccionFin);
+        txtaContenido.replaceRange("", seleccionInicio, seleccionFin);
+
+        StringSelection stringSelection = new StringSelection(textoSeleccionado);
+        clipboard.setContents(stringSelection, null);
+    }//GEN-LAST:event_mnuCortarActionPerformed
+
+    private void mnuCopiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCopiarActionPerformed
+        accionAnterior = txtaContenido.getText();
+        int seleccionInicio = txtaContenido.getSelectionStart();
+        int seleccionFin = txtaContenido.getSelectionEnd();
+        String textoSeleccionado = txtaContenido.getText().substring(seleccionInicio, seleccionFin);
+
+        StringSelection stringSelection = new StringSelection(textoSeleccionado);
+        clipboard.setContents(stringSelection, null);
+    }//GEN-LAST:event_mnuCopiarActionPerformed
+
+    private void mnuPegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPegarActionPerformed
+        accionAnterior = txtaContenido.getText();
+        Transferable contents = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(this);
+        if (contents != null && contents.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+            try {
+                String contenidoPortapapeles = (String) contents.getTransferData(DataFlavor.stringFlavor);
+                int posicionCursor = txtaContenido.getCaretPosition();
+                txtaContenido.insert(contenidoPortapapeles, posicionCursor);
+            } catch (UnsupportedFlavorException | IOException ex) {
+                // Maneja la excepción si ocurre un error al obtener el texto
+                ex.printStackTrace();
+            }
+        } else {
+            // Notifica al usuario que no hay texto disponible en el portapapeles
+            JOptionPane.showMessageDialog(this, "No hay texto disponible en el portapapeles.");
+        }
+    }//GEN-LAST:event_mnuPegarActionPerformed
+
+    private void mnuEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuEliminarActionPerformed
+        accionAnterior = txtaContenido.getText();
+        int seleccionInicio = txtaContenido.getSelectionStart();
+        int seleccionFin = txtaContenido.getSelectionEnd();
+        txtaContenido.replaceRange("", seleccionInicio, seleccionFin);
+    }//GEN-LAST:event_mnuEliminarActionPerformed
+
+    private void mnuBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBuscarActionPerformed
+        textoABuscar = JOptionPane.showInputDialog(this, "Introduzca el texto a buscar:");
+        if (textoABuscar != null && !textoABuscar.isEmpty()) {
+            int indiceEncontrado = txtaContenido.getText().indexOf(textoABuscar);
+            if (indiceEncontrado != -1) {
+                txtaContenido.setSelectionStart(indiceEncontrado);
+                txtaContenido.setSelectionEnd(indiceEncontrado + textoABuscar.length());
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha encontrado el texto \"" + textoABuscar + "\".");
+            }
+        }
+    }//GEN-LAST:event_mnuBuscarActionPerformed
+
+    private void mnuBuscarSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBuscarSiguienteActionPerformed
+        int indiceEncontrado = txtaContenido.getText().indexOf(textoABuscar, txtaContenido.getCaretPosition());
+        if (indiceEncontrado != -1) {
+            txtaContenido.select(indiceEncontrado, indiceEncontrado + textoABuscar.length());
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró la siguiente coincidencia.");
+        }
+    }//GEN-LAST:event_mnuBuscarSiguienteActionPerformed
+
+    private void mnuReemplazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReemplazarActionPerformed
+        String textoBuscar = JOptionPane.showInputDialog(this, "Introduzca el texto a reemplazar:");
+        String textoReemplazar = JOptionPane.showInputDialog(this, "Introduzca el nuevo texto:");
+        String nuevoTexto = txtaContenido.getText().replaceAll(textoBuscar, textoReemplazar);
+        txtaContenido.setText(nuevoTexto);
+    }//GEN-LAST:event_mnuReemplazarActionPerformed
+
+    private void mnuSeleccionarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSeleccionarTodoActionPerformed
+        txtaContenido.selectAll();
+    }//GEN-LAST:event_mnuSeleccionarTodoActionPerformed
+
+    private void mnuFechaHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFechaHoraActionPerformed
+        String fechaHora = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+        txtaContenido.insert(fechaHora, txtaContenido.getCaretPosition());
+    }//GEN-LAST:event_mnuFechaHoraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,11 +706,8 @@ public class BlockDeNotas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu btnEdicion1;
-    private javax.swing.JMenu btnEdicion2;
-    private javax.swing.JMenu btnEdicion3;
+    private javax.swing.JButton btnAjustes;
     private javax.swing.JMenuItem btnGuardar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -397,14 +718,29 @@ public class BlockDeNotas extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem mnuAbrir;
+    private javax.swing.JCheckBoxMenuItem mnuAjusteLinea;
     private javax.swing.JMenu mnuArchivo;
     private javax.swing.JMenu mnuAyuda;
+    private javax.swing.JCheckBoxMenuItem mnuBarraEstado;
+    private javax.swing.JMenuItem mnuBuscar;
+    private javax.swing.JMenuItem mnuBuscarAnterior;
+    private javax.swing.JMenuItem mnuBuscarSiguiente;
+    private javax.swing.JMenuItem mnuCopiar;
+    private javax.swing.JMenuItem mnuCortar;
+    private javax.swing.JMenuItem mnuDeshacer;
     private javax.swing.JMenu mnuEdicion;
+    private javax.swing.JMenuItem mnuEliminar;
+    private javax.swing.JMenuItem mnuFechaHora;
     private javax.swing.JMenu mnuFormato;
+    private javax.swing.JMenuItem mnuIra;
+    private javax.swing.JMenuItem mnuPegar;
+    private javax.swing.JMenuItem mnuReemplazar;
+    private javax.swing.JMenuItem mnuSeleccionarTodo;
     private javax.swing.JMenu mnuVer;
     private javax.swing.JTextArea txtaContenido;
     // End of variables declaration//GEN-END:variables
