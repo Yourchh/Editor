@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="Manual de Usuario"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="jScrollPane1" alignment="0" pref="420" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jScrollPane1" min="-2" pref="371" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="jTextArea1">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
+                <Property name="rows" type="int" value="5"/>
+                <Property name="text" type="java.lang.String" value="INDICE&#xa;&#xa;  1. Requisitos del sistema&#xa;  2. Descarga e instalaci&#xf3;n&#xa;  3. Interfaz de usuario&#xa;  4. Creaci&#xf3;n de un nuevo documento&#xa;  5. Edici&#xf3;n de texto&#xa;  6. Formato de texto&#xa;  7. Herramientas adicionales&#xa;  8. Guardar e imprimir documentos&#xa;&#xa;------------------------------------------------------------------------------------------------&#xa;&#xa;1. Requisitos del sistema&#xa;    Para usar el editor de texto, tu dispositivo debe cumplir &#xa;    con los siguientes requisitos m&#xed;nimos:&#xa;&#xa;    &gt; Sistema operativo: &#xa;        Windows 7 o superior, macOS 10.10 o superior, &#xa;        Linux Ubuntu     16.04 o superior.&#xa;&#xa;    &gt;Procesador: &#xa;       Intel Core i3 o superior, AMD Ryzen 3 o superior.&#xa;&#xa;    &gt;Memoria RAM: &#xa;       4 GB o superior.&#xa;&#xa;    &gt;Espacio en disco: &#xa;       100 MB disponibles.&#xa;&#xa;------------------------------------------------------------------------------------------------&#xa;&#xa;2. Descarga e instalaci&#xf3;n&#xa;&#xa;    2.1 Abre un terminal o s&#xed;mbolo del sistema.&#xa;    2.2 Navega hasta la carpeta donde deseas clonar el &#xa;            proyecto.&#xa;    2.3 Ejecuta el siguiente comando:&#xa;&#xa;            git clone https://github.com/Yourchh/Editor.git&#xa;    &#xa;    2.4. Importar el proyecto a NetBeans&#xa;    2.4.1 Abre NetBeans IDE.&#xa;    2.4.2 Selecciona &quot;Archivo&quot; &gt; &quot;Abrir proyecto&quot;.&#xa;    2.4.3 Navega hasta la carpeta del proyecto clonado &#xa;               (&quot;Editor&quot;).&#xa;    2.4.4 Selecciona el archivo nbproject y haz clic en                               &quot;Abrir&quot;.&#xa;    2.5. Configurar el proyecto&#xa;    2.5.1 Si aparece la ventana &quot;Configurar proyecto&quot;, haz &#xa;              clic en &quot;Siguiente&quot;.&#xa;    2.5.2 Selecciona la plataforma de desarrollo (Java SE).&#xa;    2.5.3 Haz clic en &quot;Finalizar&quot;.&#xa;    2.6. Compilar y ejecutar el proyecto&#xa;    2.6.1 Haz clic derecho en el nombre del proyecto en la &#xa;              ventana &quot;Explorador de proyectos&quot;.&#xa;    2.6.2 Selecciona &quot;Limpiar y construir&quot;.&#xa;    2.6.3 Si la compilaci&#xf3;n se realiza correctamente, haz &#xa;            clic derecho en el nombre del proyecto nuevamente.&#xa;    2.6.4 Selecciona &quot;Ejecutar&quot;.&#xa;    2.7. Soluci&#xf3;n de problemas&#xa;             Si la compilaci&#xf3;n o ejecuci&#xf3;n del proyecto falla, &#xa;             consulta la consola de salida para ver los mensajes                    de error.&#xa;&#xa;     Nota: Es posible que necesites instalar dependencias &#xa;     adicionales para ejecutar el proyecto correctamente. &#xa;     Las dependencias se pueden encontrar en el archivo &#xa;     pom.xml del proyecto.&#xa;&#xa;------------------------------------------------------------------------------------------------&#xa;&#xa;3. Interfaz de usuario&#xa;     La interfaz de usuario del editor de texto se divide en las         siguientes secciones:&#xa;&#xa;      - Barra de t&#xed;tulo: Muestra el nombre del archivo actual                y el nombre del editor de texto.&#xa;      - Men&#xfa; principal: Contiene opciones para acceder a las               diferentes funciones del editor.&#xa;      - Barra de herramientas: Contiene iconos para las &#xa;         funciones m&#xe1;s utilizadas.&#xa;      - &#xc1;rea de trabajo: Donde se muestra el contenido del &#xa;         documento.&#xa;      - Barra de estado: Muestra informaci&#xf3;n sobre la &#xa;         posici&#xf3;n del cursor, el modo de escritura y el idioma &#xa;         del teclado.&#xa;&#xa;------------------------------------------------------------------------------------------------&#xa;&#xa;4. Creaci&#xf3;n de un nuevo documento&#xa;      &#xa;      Para crear un nuevo documento, haz clic en el men&#xfa; &#xa;      &quot;Archivo&quot; y selecciona la opci&#xf3;n &quot;Nuevo&quot;. &#xa;      Tambi&#xe9;n puedes usar el atajo de teclado &quot;Ctrl + N&quot;.&#xa;&#xa;------------------------------------------------------------------------------------------------&#xa;&#xa;5. Edici&#xf3;n de texto&#xa;&#xa;     Puedes escribir texto en el &#xe1;rea de trabajo. Para &#xa;     seleccionar texto, haz clic y arrastra el mouse sobre la &#xa;     zona deseada. Tambi&#xe9;n puedes usar las teclas de flecha         para mover el cursor y seleccionar texto.&#xa;&#xa;------------------------------------------------------------------------------------------------&#xa;6. Formato de texto&#xa;     &#xa;      Puedes aplicar diferentes formatos al texto, como &#xa;      negrita, cursiva, tama&#xf1;o de fuente, color, alineaci&#xf3;n, &#xa;      etc. Para ello, utiliza las opciones de la barra de &#xa;      herramientas o del men&#xfa; &quot;Formato&quot;.&#xa;&#xa;------------------------------------------------------------------------------------------------&#xa;&#xa;7. Herramientas adicionales&#xa;     El editor de texto incluye herramientas adicionales &#xa;     como:&#xa;&#xa;     Buscar y reemplazar: Permite encontrar y reemplazar             palabras o frases en el texto.&#xa;&#xa;------------------------------------------------------------------------------------------------&#xa;&#xa;8. Guardar e imprimir documentos&#xa;&#xa;     - Para guardar un documento, haz clic en el men&#xfa; &#xa;        &quot;Archivo&quot; y selecciona la opci&#xf3;n &quot;Guardar&quot;. Tambi&#xe9;n &#xa;        puedes usar el atajo de teclado &quot;Ctrl + S&quot;. &#xa;     - Para imprimir un documento, haz clic en el men&#xfa; &#xa;        &quot;Archivo&quot; y selecciona la opci&#xf3;n &quot;Imprimir&quot;.&#xa;"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
