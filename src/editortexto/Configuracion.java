@@ -1,20 +1,38 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package editortexto;
+
+import java.awt.Color;
+import javax.swing.JCheckBox;
 
 /**
  *
  * @author jorgeandreshernandezpelayo
  */
-public class Configuracion extends javax.swing.JPanel {
+public final class Configuracion extends javax.swing.JFrame {
+
+    int num;
 
     /**
      * Creates new form Configuracion
      */
     public Configuracion() {
         initComponents();
+        num = BlockDeNotas.getAux();
+        switch (num) {
+            case 0:
+                btnOscuro.setSelected(false);
+                btnClaro.setSelected(true);
+                cambiarTema(btnClaro, 240, 255, 0, 230, 200);
+                break;
+            case 1:
+                btnClaro.setSelected(false);
+                btnOscuro.setSelected(true);
+                cambiarTema(btnOscuro, 150, 50, 255, 0, 100);
+                break;
+        }
     }
 
     /**
@@ -26,19 +44,307 @@ public class Configuracion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        panelPreTema = new javax.swing.JPanel();
+        panelTema = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnClaro = new javax.swing.JCheckBox();
+        btnOscuro = new javax.swing.JCheckBox();
+        panelVentanaEditor = new javax.swing.JPanel();
+        panelVenatanaAjuste = new javax.swing.JPanel();
+        iconAjustes = new javax.swing.JLabel();
+        panelVentanaBarraEstado = new javax.swing.JPanel();
+        txtVentanaBarraEstado = new javax.swing.JLabel();
+        panelContenidoVentana = new javax.swing.JPanel();
+        txtTitulo = new javax.swing.JLabel();
+        txtConLinea = new javax.swing.JLabel();
+        btnAplicar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Configuracion");
+        setResizable(false);
+
+        panelPreTema.setBackground(new java.awt.Color(204, 204, 204));
+
+        panelTema.setBackground(new java.awt.Color(245, 245, 245));
+
+        jLabel1.setText("Tema:");
+
+        btnClaro.setText("Claro");
+        btnClaro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClaroActionPerformed(evt);
+            }
+        });
+
+        btnOscuro.setText("Oscuro");
+        btnOscuro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOscuroActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelTemaLayout = new javax.swing.GroupLayout(panelTema);
+        panelTema.setLayout(panelTemaLayout);
+        panelTemaLayout.setHorizontalGroup(
+            panelTemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTemaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelTemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(btnClaro)
+                    .addComponent(btnOscuro))
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
+        panelTemaLayout.setVerticalGroup(
+            panelTemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTemaLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnClaro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnOscuro)
+                .addGap(133, 133, 133))
+        );
+
+        panelVentanaEditor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        panelVenatanaAjuste.setBackground(new java.awt.Color(255, 255, 255));
+
+        iconAjustes.setFont(new java.awt.Font("Cantarell", 0, 5)); // NOI18N
+        iconAjustes.setText("@");
+
+        javax.swing.GroupLayout panelVenatanaAjusteLayout = new javax.swing.GroupLayout(panelVenatanaAjuste);
+        panelVenatanaAjuste.setLayout(panelVenatanaAjusteLayout);
+        panelVenatanaAjusteLayout.setHorizontalGroup(
+            panelVenatanaAjusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVenatanaAjusteLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(iconAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelVenatanaAjusteLayout.setVerticalGroup(
+            panelVenatanaAjusteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVenatanaAjusteLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(iconAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        panelVentanaBarraEstado.setBackground(new java.awt.Color(255, 255, 255));
+        panelVentanaBarraEstado.setPreferredSize(new java.awt.Dimension(0, 8));
+
+        txtVentanaBarraEstado.setFont(new java.awt.Font("Cantarell", 0, 5)); // NOI18N
+        txtVentanaBarraEstado.setText("Ln 1, Col 1                             20 carcateres                      8 palabras                              es     00/11/2222");
+
+        javax.swing.GroupLayout panelVentanaBarraEstadoLayout = new javax.swing.GroupLayout(panelVentanaBarraEstado);
+        panelVentanaBarraEstado.setLayout(panelVentanaBarraEstadoLayout);
+        panelVentanaBarraEstadoLayout.setHorizontalGroup(
+            panelVentanaBarraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelVentanaBarraEstadoLayout.createSequentialGroup()
+                .addComponent(txtVentanaBarraEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelVentanaBarraEstadoLayout.setVerticalGroup(
+            panelVentanaBarraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVentanaBarraEstadoLayout.createSequentialGroup()
+                .addGap(0, 1, Short.MAX_VALUE)
+                .addComponent(txtVentanaBarraEstado))
+        );
+
+        panelContenidoVentana.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtTitulo.setFont(new java.awt.Font("DejaVu Sans", 0, 8)); // NOI18N
+        txtTitulo.setText("\"Rosa Pastel\"");
+
+        txtConLinea.setFont(new java.awt.Font("Cantarell", 0, 5)); // NOI18N
+        txtConLinea.setForeground(new java.awt.Color(0, 0, 0));
+        txtConLinea.setText("Si yo queria ser esa mujer la madre de tus hijos y juntos caminar hacia al altar directo");
+
+        javax.swing.GroupLayout panelContenidoVentanaLayout = new javax.swing.GroupLayout(panelContenidoVentana);
+        panelContenidoVentana.setLayout(panelContenidoVentanaLayout);
+        panelContenidoVentanaLayout.setHorizontalGroup(
+            panelContenidoVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContenidoVentanaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelContenidoVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTitulo)
+                    .addComponent(txtConLinea))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelContenidoVentanaLayout.setVerticalGroup(
+            panelContenidoVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContenidoVentanaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtConLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelVentanaEditorLayout = new javax.swing.GroupLayout(panelVentanaEditor);
+        panelVentanaEditor.setLayout(panelVentanaEditorLayout);
+        panelVentanaEditorLayout.setHorizontalGroup(
+            panelVentanaEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelVenatanaAjuste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelVentanaBarraEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(panelContenidoVentana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        panelVentanaEditorLayout.setVerticalGroup(
+            panelVentanaEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelVentanaEditorLayout.createSequentialGroup()
+                .addComponent(panelVenatanaAjuste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelContenidoVentana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelVentanaBarraEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        btnAplicar.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        btnAplicar.setText("Aplicar");
+        btnAplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAplicarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelPreTemaLayout = new javax.swing.GroupLayout(panelPreTema);
+        panelPreTema.setLayout(panelPreTemaLayout);
+        panelPreTemaLayout.setHorizontalGroup(
+            panelPreTemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPreTemaLayout.createSequentialGroup()
+                .addComponent(panelTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(panelPreTemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelVentanaEditor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelPreTemaLayout.createSequentialGroup()
+                        .addComponent(btnAplicar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        panelPreTemaLayout.setVerticalGroup(
+            panelPreTemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPreTemaLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(panelVentanaEditor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelPreTemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnAplicar))
+                .addContainerGap())
+            .addComponent(panelTema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 436, Short.MAX_VALUE)
+            .addComponent(panelPreTema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
+            .addComponent(panelPreTema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
+    private void btnOscuroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOscuroActionPerformed
+        cambiarTema(btnOscuro, 150, 50, 255, 0, 100);
+        btnClaro.setSelected(false);
+        num = 1;
+    }//GEN-LAST:event_btnOscuroActionPerformed
+
+    public void cambiarTema(JCheckBox boton, int tema_TC, int vA, int txtColor, int vE, int preT) {
+        if (boton.isSelected()) {
+            panelTema.setBackground(new Color(tema_TC, tema_TC, tema_TC));
+            panelVenatanaAjuste.setBackground(new Color(vA, vA, vA));
+            panelVentanaEditor.setBackground(new Color(vE, vE, vE));
+            panelPreTema.setBackground(new Color(preT, preT, preT));
+            panelContenidoVentana.setBackground(new Color(vA, vA, vA));
+            panelVentanaBarraEstado.setBackground(new Color(vA, vA, vA));
+            txtConLinea.setForeground(new Color(txtColor, txtColor, txtColor));
+            txtTitulo.setForeground(new Color(txtColor, txtColor, txtColor));
+            txtVentanaBarraEstado.setForeground(new Color(txtColor, txtColor, txtColor));
+        }
+    }
+
+    private void btnClaroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClaroActionPerformed
+        cambiarTema(btnClaro, 240, 255, 0, 230, 200);
+        btnOscuro.setSelected(false);
+        num = 0;
+    }//GEN-LAST:event_btnClaroActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarActionPerformed
+        //BlockDeNotas aux = new BlockDeNotas();
+        BlockDeNotas.cambiarTema(num);
+        BlockDeNotas.setAux(num);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAplicarActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Configuracion().setVisible(true);
+//            }
+//        });
+//    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAplicar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JCheckBox btnClaro;
+    private javax.swing.JCheckBox btnOscuro;
+    private javax.swing.JLabel iconAjustes;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel panelContenidoVentana;
+    private javax.swing.JPanel panelPreTema;
+    private javax.swing.JPanel panelTema;
+    private javax.swing.JPanel panelVenatanaAjuste;
+    private javax.swing.JPanel panelVentanaBarraEstado;
+    private javax.swing.JPanel panelVentanaEditor;
+    private javax.swing.JLabel txtConLinea;
+    private javax.swing.JLabel txtTitulo;
+    private javax.swing.JLabel txtVentanaBarraEstado;
     // End of variables declaration//GEN-END:variables
+
 }
